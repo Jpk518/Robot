@@ -3,8 +3,8 @@
 #include <vector>
 #include <string>
 
-
 class inventory{
+
   public:
     inventory();
     //vector<string> inventory;

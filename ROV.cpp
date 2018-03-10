@@ -12,17 +12,19 @@
 #include "machine.cpp"
 #include "items.cpp"
 #include "inventory.cpp"
+
 using namespace std;
 
 bool running = true;
 
-void Setup(map pool, inventory inv, items item){
+
+void Setup(map &pool, inventory &inv, items &item){
   running = true;
-  cout << "This simulation will run with no starting items on ROV." << endl;
+  cout << "This simulation xwill run with no starting items on ROV." << endl;
   while(true)
   {
     cout << "Enter # of items in course (1-10): ";
-    cin >> pool.itemNum;
+    cin >> item.itemNum;
     if (pool.itemNum > 10 || pool.itemNum < 0 || !cin)
     {
       cin.clear();
@@ -33,22 +35,25 @@ void Setup(map pool, inventory inv, items item){
     }
     else
     {
+      item.resizeItem(item.itemNum);
+      cout << item.itemX.size() << endl;
+
       for(int i = 0; i < pool.itemNum; i++)
       {
         srand(time(0));
         item.itemX[i] = rand() % pool.width;
         item.itemY[i] = rand() % pool.height;
         inv.invNum = 0;
-        return;
       }
+    return;
     }
   }
 }
 
-void Draw(map pool, machine robot, items item){
+void Draw(map &pool, machine &robot, items &item){
   system("CLS"); // system clear
   for (int i = 0; i < pool.width; i++) //top border
-    cout << " # " ;
+  cout << " # " ;
   cout << endl;
 
   for (int j = 0; j < pool.height; j++)
@@ -84,8 +89,7 @@ void Draw(map pool, machine robot, items item){
 
 }
 
-void Input(map pool, machine robot){
-
+void Input(map &pool, machine &robot){
   switch(_getch())
   {
     case 'w':
@@ -106,14 +110,14 @@ void Input(map pool, machine robot){
     case 'x':
 
       break;
-    case 27:
-  		running = false;
+
     default:
       break;
   }
 }
 
-void Logic(map pool, machine robot){
+void Logic(map &pool, machine &robot){
+
   switch(robot.dir)
   {
     case robot.LEFT:
@@ -144,6 +148,7 @@ int main(){
   items item(pool);
 
   Setup(pool, inv, item);
+
   while (running)
   {
     Draw(pool, robot, item);

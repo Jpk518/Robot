@@ -1,9 +1,10 @@
-#include "machine.h"
 #include <iostream>
 using namespace std;
 
+#include "machine.h"
+
 machine::machine()
-: x(1), y(1)
+: x(1), y(0)
 {
 
 }
